@@ -1,0 +1,12 @@
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\MyWeb.Core.csproj.AssemblyReference.cache
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\MyWeb.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\MyWeb.Core.AssemblyInfoInputs.cache
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\MyWeb.Core.AssemblyInfo.cs
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\MyWeb.Core.csproj.CoreCompileInputs.cache
+C:\Users\n\Documents\Project\web\MyWeb.Core\bin\Debug\net6.0\MyWeb.Core.deps.json
+C:\Users\n\Documents\Project\web\MyWeb.Core\bin\Debug\net6.0\MyWeb.Core.dll
+C:\Users\n\Documents\Project\web\MyWeb.Core\bin\Debug\net6.0\MyWeb.Core.pdb
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\MyWeb.Core.dll
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\refint\MyWeb.Core.dll
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\MyWeb.Core.pdb
+C:\Users\n\Documents\Project\web\MyWeb.Core\obj\Debug\net6.0\ref\MyWeb.Core.dll

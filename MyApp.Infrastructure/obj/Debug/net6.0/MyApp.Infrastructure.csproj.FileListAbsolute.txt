@@ -1,0 +1,14 @@
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\bin\Debug\net6.0\MyApp.Infrastructure.deps.json
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\bin\Debug\net6.0\MyApp.Infrastructure.runtimeconfig.json
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\bin\Debug\net6.0\MyApp.Infrastructure.dll
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\bin\Debug\net6.0\MyApp.Infrastructure.pdb
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.AssemblyInfo.cs
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.dll
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\refint\MyApp.Infrastructure.dll
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.pdb
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\MyApp.Infrastructure.genruntimeconfig.cache
+C:\Users\n\Documents\Project\web\MyApp.Infrastructure\obj\Debug\net6.0\ref\MyApp.Infrastructure.dll

@@ -1,7 +1,6 @@
+
+/MyWeb.Core/bin
 /MyWeb.Core/obj
-/MyApp.Core/bin
-/MyApp.Infrastructure/bin
-/MyApp.Infrastructure/obj
 /MyApp.Web/bin
 /MyApp.Web/obj
-
+/MyWeb.Core/bin

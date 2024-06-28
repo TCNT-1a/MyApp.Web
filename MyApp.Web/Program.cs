@@ -44,7 +44,6 @@ using (var scope = app.Services.CreateScope())
 //    app.UseSwaggerUI();
 //}
 
-
 app.Run();
 
 static void MakeBuilder(WebApplicationBuilder builder)

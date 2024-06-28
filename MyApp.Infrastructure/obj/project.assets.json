@@ -1660,11 +1660,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\n\\Documents\\Project\\web\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\n\\Documents\\Project\\MyApp.Web\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
       "projectName": "MyApp.Infrastructure",
-      "projectPath": "C:\\Users\\n\\Documents\\Project\\web\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\n\\Documents\\Project\\MyApp.Web\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\n\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\n\\Documents\\Project\\web\\MyApp.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\n\\Documents\\Project\\MyApp.Web\\MyApp.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

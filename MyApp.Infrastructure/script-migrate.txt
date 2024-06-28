@@ -4,3 +4,15 @@ dotnet tool install --global dotnet-ef --version 6.0.423
 dotnet ef migrations add InitialCreate
 --
 dotnet ef database update
+
+
+
+
+5. Chạy Migration và Update Database
+Để chạy migration và update database, bạn cần chỉ định cả project chứa DbContext (MyApp.Core) và project khởi động (MyApp.Web).
+
+Mở Package Manager Console và chạy các lệnh sau:
+
+
+Add-Migration InitialCreate -Project MyApp.Infrastructure -StartupProject MyApp.Web
+Update-Database -Project MyApp.Infrastructure -StartupProject MyApp.Web

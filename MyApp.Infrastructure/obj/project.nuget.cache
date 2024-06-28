@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d4Ti+mLqsJ8ag4D8HBubQK/EOJtCaZ+d3C03yZOcHlis2RSB/XrkkzzZQOVcyPOS1t4qBBYjT8sSyOMQlCJFgA==",
+  "dgSpecHash": "JW+HnRggMN/lTOcDdcgxrnJSVrN9bC7zvCcAjDlvKrvSigbUY8/gQEsYGobV6DZnn5EtdjpAFtmTzsiHSWsz3Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\n\\Documents\\Project\\web\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\n\\Documents\\Project\\MyApp.Web\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\n\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\n\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.31\\microsoft.data.sqlite.core.6.0.31.nupkg.sha512",

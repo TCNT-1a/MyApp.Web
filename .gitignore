@@ -1,7 +1,7 @@
-/MyApp.Infrastructure/bin/
-/MyApp.Web/bin/
-/MyApp.Core/bin/
-/MyApp.Infrastructure/obj/
-/MyApp.Web/obj/
-/MyApp.Core/obj/
+/MyWeb.Core/obj
+/MyApp.Core/bin
+/MyApp.Infrastructure/bin
+/MyApp.Infrastructure/obj
+/MyApp.Web/bin
+/MyApp.Web/obj
 

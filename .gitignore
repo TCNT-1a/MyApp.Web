@@ -4,3 +4,5 @@
 /MyApp.Web/bin
 /MyApp.Web/obj
 /MyWeb.Core/bin
+/MyApp.Infrastructure/bin
+/MyApp.Infrastructure/obj

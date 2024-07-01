@@ -97,8 +97,8 @@ static void MakeBuilder(WebApplicationBuilder builder)
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    string Host = configuration.GetValue("Host", "localhost");
-    string Port = configuration.GetValue("Port", "5000");
-    string baseAddress = $"http://{Host}:{Port}";
+    //string Host = configuration.GetValue("Host", "localhost");
+    //string Port = configuration.GetValue("Port", "5000");
+    //string baseAddress = $"http://{Host}:{Port}";
     //builder.WebHost.UseUrls(baseAddress);
 }

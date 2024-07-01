@@ -1,4 +1,4 @@
-﻿namespace MyApp.Web.Exception
+﻿namespace MyApp.Web.Exceptions
 {
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;

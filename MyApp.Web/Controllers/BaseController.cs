@@ -9,10 +9,11 @@ namespace MyApp.Web.Controllers
     public abstract class BaseController<TEntity> : ControllerBase where TEntity : class
     {
         private readonly BloggingContext _context;
-
-        protected BaseController(BloggingContext context)
+        private readonly ILogger _logger;
+        protected BaseController(BloggingContext context, ILogger logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/[controller]
@@ -90,6 +91,26 @@ namespace MyApp.Web.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // GET: api/[controller]/paged?pageNumber=1&pageSize=10
+        [HttpGet("paged")]
+        public async Task<ActionResult<IEnumerable<TEntity>>> GetPaged(int pageNumber = 1, int pageSize = 10)
+        {
+            try
+            {
+                var entities = await _context.Set<TEntity>()
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting paged entities.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         private bool EntityExists(int id)

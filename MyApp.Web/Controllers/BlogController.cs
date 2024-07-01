@@ -10,7 +10,7 @@ namespace MyApp.Web.Controllers
     [ApiController]
     public class BlogController : BaseController<Blog>
     {
-        public BlogController(BloggingContext context) : base(context)
+        public BlogController(BloggingContext context, ILogger<Blog> logger) : base(context, logger)
         {
         }
     }

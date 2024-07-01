@@ -2,23 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
+using MyApp.Web.Filter;
 
 namespace MyApp.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogController : ControllerBase
+    public class BlogController : BaseController<Blog>
     {
-        private readonly BloggingContext _dbContext;
-        public BlogController(BloggingContext context)
+        public BlogController(BloggingContext context) : base(context)
         {
-            this._dbContext = context;
-        }
-        [HttpGet("/blog")]
-        public  Blog getBlogs()
-        {
-            var r =  _dbContext.Blogs.FirstOrDefault();
-            return r;
         }
     }
 }

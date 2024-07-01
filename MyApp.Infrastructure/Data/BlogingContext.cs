@@ -7,7 +7,6 @@ namespace MyApp.Infrastructure.Data
 {
     public class BloggingContext : DbContext
     {
-
         public BloggingContext(DbContextOptions<BloggingContext> options)
             : base(options)
         {

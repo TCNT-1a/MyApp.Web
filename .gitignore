@@ -3,6 +3,7 @@
 /MyWeb.Core/obj
 /MyApp.Web/bin
 /MyApp.Web/obj
+/MyApp.Web/.vs
 /MyWeb.Core/bin
 /MyApp.Infrastructure/bin
 /MyApp.Infrastructure/obj

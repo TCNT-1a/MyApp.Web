@@ -1,7 +1,8 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'flowbite/dist/flowbite.css';
+/*@import 'flowbite/dist/flowbite.css';*/
+@import 'https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css';
 
 :root {
     --main-font-size: 1.2rem;

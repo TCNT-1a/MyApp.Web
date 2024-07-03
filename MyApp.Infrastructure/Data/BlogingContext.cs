@@ -12,5 +12,6 @@ namespace MyApp.Infrastructure.Data
         {
         }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

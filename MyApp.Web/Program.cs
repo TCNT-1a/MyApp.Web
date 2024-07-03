@@ -9,11 +9,13 @@ using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 ConfigBuilder(ref builder);
 
 var app = builder.Build();
 
-AddSwaggerPage(app);
+AppConfigSwagger(app);
+AppConfigMvc(app);
 app.MapControllers();
 app.UseAuthorization();
 app.UseAuthentication();
@@ -28,7 +30,7 @@ using (var scope = app.Services.CreateScope())
 }
 app.Run();
 
-static void AddSwaggerPage(WebApplication app)
+static void AppConfigSwagger(WebApplication app)
 {
     //if (app.Environment.IsDevelopment())
     //{
@@ -38,13 +40,13 @@ static void AddSwaggerPage(WebApplication app)
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-static void AddSwagger(WebApplicationBuilder builder)
+static void BuildSwagger(WebApplicationBuilder builder)
 {
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 }
-static void AddSessionCookie(WebApplicationBuilder builder)
+static void BuildSessionCookie(WebApplicationBuilder builder)
 {
     builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
     {
@@ -62,7 +64,7 @@ static void AddSessionCookie(WebApplicationBuilder builder)
     });
     builder.Services.AddDistributedMemoryCache();
 }
-static void AddConfigDbContext(WebApplicationBuilder builder)
+static void BuildConfigDbContext(WebApplicationBuilder builder)
 {
     var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
     IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -73,7 +75,7 @@ static void AddConfigDbContext(WebApplicationBuilder builder)
     string connectionString = configuration.GetConnectionString("DbConnection");
     builder.Services.AddDbContext<BloggingContext>((options) => options.UseSqlite(connectionString));
 }
-static void AddBatchSerice(WebApplicationBuilder builder)
+static void BuildBatchSerice(WebApplicationBuilder builder)
 {
     builder.Services.AddQuartz(q =>
     {
@@ -91,24 +93,50 @@ static void AddBatchSerice(WebApplicationBuilder builder)
         );
     });
 }
-static void ConfigBuilder(ref WebApplicationBuilder builder)
-{
-    AddSessionCookie(builder);
-    AddSwagger(builder);
-    AddConfigDbContext(builder);
-    builder.Services.Configure<ApiBehaviorOptions>(options =>
-    {
-        options.SuppressModelStateInvalidFilter = true;
-    });
-    builder.Services.AddScoped<ValidateModelAttribute>();
-    AddBatchSerice(builder);
-    ConfigPort(builder);
-}
-static void ConfigPort(WebApplicationBuilder builder)
+static void BuildPort(WebApplicationBuilder builder)
 {
     var configuration = builder.Configuration;
     string Host = configuration.GetValue("Host", "localhost");
     string Port = configuration.GetValue("Port", "5000");
     string baseAddress = $"http://{Host}:{Port}";
     builder.WebHost.UseUrls(baseAddress);
+}
+static void ConfigBuilder(ref WebApplicationBuilder builder)
+{
+    BuildSessionCookie(builder);
+    BuildSwagger(builder);
+    BuildConfigDbContext(builder);
+    builder.Services.Configure<ApiBehaviorOptions>(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    });
+    builder.Services.AddScoped<ValidateModelAttribute>();
+    BuildBatchSerice(builder);
+    BuildPort(builder);
+}
+static void AppConfigMvc(WebApplication app)
+{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Home/Error");
+        app.UseHsts();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+
+    app.UseRouting();
+
+    app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+    });
 }

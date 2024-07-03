@@ -1,0 +1,113 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'flowbite/dist/flowbite.css';
+
+:root {
+    --main-font-size: 1.2rem;
+    --main-font-weight: bold;
+    --main-color: #4a4a4a;
+    --color1: #DBA979;
+    --color2: #E8EFCF;
+    --color3: #211551;
+    --color4: #AFD198;
+}
+
+.theme-default {
+    --color-primary: #faae13;
+    --color-secondary: #fe803b;
+    --color-text-primary: #333;
+    --color-text-secondary: #898a8d;
+    --color-text-third: #2192ff;
+    --color-text-fourth: #47b5ff;
+    --color-bg: #fff;
+    --color-bg-primary: #f5f6fa;
+    --color-bg-secondary: #E8EFCF;
+    --color-bg-icon: #e4e6eb;
+    --color-bg-hover: #fcfbdc;
+    --color-error: #e61414;
+    --color-shadow: #0f172a;
+    --color-line: #ddd;
+    --color-fur: #ffb141;
+    --color-fur-dark: #f5832c;
+    --color-spot: #f9584c;
+    --color-snout: #544258;
+    --color-collar: #3eab6c;
+    --duration: .7s;
+    --semi-duration: calc(var(--duration)/2);
+    --easing: cubic-bezier(.5,0,.5,1);
+    --stagger: calc(var(--semi-duration)*-1/2)
+}
+
+.color1 {
+    color: var(--color1);
+}
+
+.color2 {
+    color: var(--color2);
+}
+
+.color3 {
+    color: var(--color3);
+}
+
+.color4 {
+    color: var(--color4);
+}
+
+.bg-color1 {
+    background-color: var(--color1);
+}
+
+.bg-color2 {
+    background-color: var(--color2);
+}
+
+.bg-color3 {
+    background-color: var(--color3);
+}
+
+.bg-color4 {
+    background-color: var(--color4);
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-weight: bold;
+    color: var(--color4);
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 2.0rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--color4);
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+h6 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.body1 {
+    font-size: 1.1rem;
+}
+
+.body2 {
+    font-size: 1rem;
+}

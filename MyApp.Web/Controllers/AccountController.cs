@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyApp.Web.Models;
+using MyApp.Web.Models.Account;
 
 namespace MyApp.Web.Controllers
 {
@@ -9,8 +10,9 @@ namespace MyApp.Web.Controllers
         {
             return View();
         }
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login(LoginModel loginModel,string returnUrl)
         {
+            var tokenProvider = new TokenProvider();
             ViewData["ReturnUrl"] = returnUrl;
             var model = new LoginModel();
             return View(model);

@@ -1,4 +1,5 @@
-﻿namespace MyApp.Web.Models.Account
+﻿
+namespace MyApp.Web.Models.Account
 {
     public class PasswordHelper
     {

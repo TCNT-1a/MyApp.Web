@@ -1,0 +1,18 @@
+{
+  "name": "myapp.web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "scripts": {
+    "build": "npx tailwindcss -i ./wwwroot/css/tailwind.css -o ./wwwroot/css/site.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4"
+  }
+}

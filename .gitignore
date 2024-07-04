@@ -7,3 +7,5 @@
 /MyWeb.Core/bin
 /MyApp.Infrastructure/bin
 /MyApp.Infrastructure/obj
+/MyApp.Web/node_modules
+/MyApp.Infrastructure/Migrations

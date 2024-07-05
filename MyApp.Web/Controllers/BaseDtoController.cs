@@ -6,11 +6,11 @@ using System;
 
 namespace MyApp.Web.Controllers
 {
-    public abstract class BaseController<TEntity> : ControllerBase where TEntity : class
+    public abstract class BaseDtoController<TEntity, TDto> : ControllerBase where TEntity : class
     {
         private readonly BloggingContext _context;
         private readonly ILogger _logger;
-        protected BaseController(BloggingContext context, ILogger logger)
+        protected BaseDtoController(BloggingContext context, ILogger logger)
         {
             _context = context;
             _logger = logger;
@@ -18,28 +18,28 @@ namespace MyApp.Web.Controllers
 
         // GET: api/[controller]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TEntity>>> Get()
+        public async Task<ActionResult<IEnumerable<TDto>>> Get()
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            var data = await _context.Set<TEntity>().ToListAsync();
+            return Ok(ConvertToDtos(data));
         }
 
         // GET: api/[controller]/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> Get(int id)
+        public async Task<ActionResult<TDto>> Get(int id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
             if (entity == null)
             {
                 return NotFound();
             }
-
-            return entity;
+            return Ok(ConvertToDto(entity));
         }
 
         // POST: api/[controller]
         [HttpPost]
         [ServiceFilter(typeof(ValidateModelAttribute))]
-        public async Task<ActionResult<TEntity>> Post(TEntity entity)
+        public virtual async Task<ActionResult<TEntity>> Post(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
             await _context.SaveChangesAsync();
@@ -73,7 +73,6 @@ namespace MyApp.Web.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -112,9 +111,53 @@ namespace MyApp.Web.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
         private bool EntityExists(int id)
         {
             return _context.Set<TEntity>().Find(id) != null;
+        }
+        protected List<TDto> ConvertToDtos(IEnumerable<TEntity> entity)
+        {
+            if (typeof(TEntity) != typeof(TDto))
+            {
+                List<TDto> dtos = new List<TDto>();
+                foreach (var item in entity)
+                {
+                    var dto = Activator.CreateInstance<TDto>();
+                    foreach (var prop in typeof(TDto).GetProperties())
+                    {
+                        var entityProp = typeof(TEntity).GetProperty(prop.Name);
+                        if (entityProp != null && prop.CanWrite && entityProp.CanRead)
+                        {
+                            var value = entityProp.GetValue(item, null);
+                            prop.SetValue(dto, value, null);
+                        }
+                    }
+                    dtos.Add(dto);
+                }
+                return dtos;
+
+            }
+            else
+            {
+                return (List<TDto>)entity;
+            }
+
+        }
+        protected TDto ConvertToDto(TEntity entity)
+        {
+
+            var dto = Activator.CreateInstance<TDto>();
+            foreach (var prop in typeof(TDto).GetProperties())
+            {
+                var entityProp = typeof(TEntity).GetProperty(prop.Name);
+                if (entityProp != null && prop.CanWrite && entityProp.CanRead)
+                {
+                    var value = entityProp.GetValue(entity, null);
+                    prop.SetValue(dto, value, null);
+                }
+            }
+            return dto;
         }
 
     }

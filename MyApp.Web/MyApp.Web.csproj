@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Model\" />
     <Folder Include="data\" />
   </ItemGroup>
 

@@ -4,13 +4,14 @@ using MyApp.Infrastructure.Data;
 using MyApp.Web.Filter;
 using System;
 
-namespace MyApp.Web.Controllers
+namespace MyApp.Web.Controllers.Core
 {
-    public abstract class BaseDtoController<TEntity, TDto> : ControllerBase where TEntity : class
+    //soft delete
+    public abstract class AbsBaseDtoController<TEntity, TDto> : ControllerBase where TEntity : BaseEntity
     {
         private readonly BloggingContext _context;
         private readonly ILogger _logger;
-        protected BaseDtoController(BloggingContext context, ILogger logger)
+        protected AbsBaseDtoController(BloggingContext context, ILogger logger)
         {
             _context = context;
             _logger = logger;
@@ -85,8 +86,8 @@ namespace MyApp.Web.Controllers
             {
                 return NotFound();
             }
-
-            _context.Set<TEntity>().Remove(entity);
+            entity.MarkAsDeleted();
+            _context.Set<TEntity>().Update(entity);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -94,7 +95,7 @@ namespace MyApp.Web.Controllers
 
         // GET: api/[controller]/paged?pageNumber=1&pageSize=10
         [HttpGet("paged")]
-        public async Task<ActionResult<IEnumerable<TEntity>>> GetPaged(int pageNumber = 1, int pageSize = 10)
+        public async Task<ActionResult<IEnumerable<TDto>>> GetPaged(int pageNumber = 1, int pageSize = 10)
         {
             try
             {
@@ -103,7 +104,7 @@ namespace MyApp.Web.Controllers
                     .Take(pageSize)
                     .ToListAsync();
 
-                return Ok(entities);
+                return Ok(ConvertToDtos(entities));
             }
             catch (Exception ex)
             {

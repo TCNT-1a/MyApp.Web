@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
+using MyApp.Web.Controllers.Core;
 using MyApp.Web.Filter;
 using MyApp.Web.Models;
 
@@ -9,7 +10,7 @@ namespace MyApp.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : BaseDtoController<User, UserDto>
+    public class UserController : AbsBaseDtoController<User, UserDto>
     {
         private BloggingContext _context;
         public UserController(BloggingContext context, ILogger<User> logger) : base(context, logger)

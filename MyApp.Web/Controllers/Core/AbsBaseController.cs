@@ -4,13 +4,16 @@ using MyApp.Infrastructure.Data;
 using MyApp.Web.Filter;
 using System;
 
-namespace MyApp.Web.Controllers
+namespace MyApp.Web.Controllers.Core
 {
-    public abstract class BaseController<TEntity> : ControllerBase where TEntity : class
+    //soft delete
+    //task còn lại
+    //kiểm tra mấy thuộc tính của base entity có đúng khi thêm sửa xóa chưa
+    public abstract class AbsBaseController<TEntity > : ControllerBase where TEntity : BaseEntity
     {
         private readonly BloggingContext _context;
         private readonly ILogger _logger;
-        protected BaseController(BloggingContext context, ILogger logger)
+        protected AbsBaseController(BloggingContext context, ILogger logger)
         {
             _context = context;
             _logger = logger;
@@ -86,8 +89,9 @@ namespace MyApp.Web.Controllers
             {
                 return NotFound();
             }
-
-            _context.Set<TEntity>().Remove(entity);
+            //_context.Set<TEntity>().Remove(entity);
+            entity.MarkAsDeleted();
+            _context.Set<TEntity>().Update(entity);
             await _context.SaveChangesAsync();
 
             return NoContent();

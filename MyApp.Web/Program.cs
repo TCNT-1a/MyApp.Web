@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Batch;
 using MyApp.Web.Exceptions;
@@ -44,7 +45,12 @@ static void BuildSwagger(WebApplicationBuilder builder)
 {
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    //builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyApp.Web", Version = "v1" });
+        c.EnableAnnotations(); // Kích hoạt chú thích cho Swagger
+    });
 }
 static void BuildSessionCookie(WebApplicationBuilder builder)
 {

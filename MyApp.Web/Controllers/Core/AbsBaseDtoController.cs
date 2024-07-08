@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Filter;
+using Swashbuckle.AspNetCore.Annotations;
+
 using System;
 
 namespace MyApp.Web.Controllers.Core
@@ -19,6 +21,9 @@ namespace MyApp.Web.Controllers.Core
 
         // GET: api/[controller]
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all entities.")]
+        //[Consumes("application/json")]
+        [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<TDto>>> Get()
         {
             var data = await _context.Set<TEntity>().ToListAsync();
@@ -27,6 +32,11 @@ namespace MyApp.Web.Controllers.Core
 
         // GET: api/[controller]/5
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get a entity.", Description = "Requires id of entity as slug {id}.")]
+        [SwaggerResponse(201, "The entity is exist in database.", typeof(IActionResult))]
+        [SwaggerResponse(400, "The entity is not exist.")]
+        //[Consumes("application/json")]
+        [Produces("application/json")]
         public async Task<ActionResult<TDto>> Get(int id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
@@ -40,6 +50,9 @@ namespace MyApp.Web.Controllers.Core
         // POST: api/[controller]
         [HttpPost]
         [ServiceFilter(typeof(ValidateModelAttribute))]
+        [SwaggerOperation(Summary = "Create a entity.", Description = "Requires entity object as POST body. .")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
         public virtual async Task<ActionResult<TEntity>> Post(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
@@ -50,13 +63,19 @@ namespace MyApp.Web.Controllers.Core
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Update a entity.", Description = "Requires id of entity as slug {id}.")]
+        [SwaggerResponse(201, "The entity is exist in database.")]
+        [SwaggerResponse(400, "The entity is not exist.")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
         public async Task<IActionResult> Put(int id, TEntity entity)
         {
-            if ((int)entity.GetType().GetProperty("Id")?.GetValue(entity) != id)
-            {
-                return BadRequest();
-            }
 
+            if (!EntityExists(id))
+            {
+                return NotFound();
+            }
+            entity.Id = id;
             _context.Entry(entity).State = EntityState.Modified;
 
             try
@@ -65,20 +84,18 @@ namespace MyApp.Web.Controllers.Core
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EntityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest();
             }
             return NoContent();
         }
 
-        // DELETE: api/[controller]/5
+        // DELETE: api/[controller]/{id}
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Delete a entity.", Description = "Requires id of entity as slug {id}.")]
+        [SwaggerResponse(201, "The entity is exist in database.")]
+        [SwaggerResponse(400, "The entity is not exist.")]
+        //[Consumes("application/json")]
+        [Produces("application/json")]
         public async Task<IActionResult> Delete(int id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
@@ -87,6 +104,27 @@ namespace MyApp.Web.Controllers.Core
                 return NotFound();
             }
             entity.MarkAsDeleted();
+            _context.Set<TEntity>().Update(entity);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        
+        // RESTORE: api/[controller]/{id}
+        [HttpPatch("{id}")]
+        [SwaggerOperation(Summary = "Restore a entity.", Description = "Requires id of entity as slug {id}.")]
+        [SwaggerResponse(201, "The entity is exist in database.", typeof(IActionResult))]
+        [SwaggerResponse(400, "The entity is not exist.")]
+        //[Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var entity = await _context.Set<TEntity>().FindAsync(id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            entity.Restore();
             _context.Set<TEntity>().Update(entity);
             await _context.SaveChangesAsync();
 
@@ -115,6 +153,7 @@ namespace MyApp.Web.Controllers.Core
 
         private bool EntityExists(int id)
         {
+
             return _context.Set<TEntity>().Find(id) != null;
         }
         protected List<TDto> ConvertToDtos(IEnumerable<TEntity> entity)

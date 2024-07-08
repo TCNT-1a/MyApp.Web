@@ -18,7 +18,9 @@ namespace MyApp.Web.Controllers
             this._context = context;
         }
         [HttpPost]
+        
         [ServiceFilter(typeof(ValidateModelAttribute))]
+        
         public override async Task<ActionResult<User>> Post(User entity)
         {
             entity.Password = HashPassword(entity.Password);

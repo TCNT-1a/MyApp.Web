@@ -25,5 +25,10 @@ namespace MyApp.Infrastructure.Data
             IsDeleted = true;
             UpdatedDate = DateTime.Now;
         }
+        public void Restore()
+        {
+            IsDeleted = false;
+            UpdatedDate = DateTime.Now;
+        }
     }
 }

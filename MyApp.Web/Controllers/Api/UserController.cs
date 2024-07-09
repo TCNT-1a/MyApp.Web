@@ -13,8 +13,8 @@ namespace MyApp.Web.Controllers
     [ApiController]
     public class UserController : AbsBaseDtoController<User, UserDto>
     {
-        private BloggingContext _context;
-        private IMapper _mapper;
+        private readonly BloggingContext _context;
+        private readonly IMapper _mapper;
         public UserController(BloggingContext context, ILogger<User> logger, IMapper mapper) : base(context, logger, mapper)
         {
             this._context = context;
@@ -40,7 +40,7 @@ namespace MyApp.Web.Controllers
             return obj;
         }
 
-        private string HashPassword(string password)
+        private static string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }

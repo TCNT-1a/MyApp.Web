@@ -134,7 +134,7 @@ namespace MyApp.Web.Controllers.Core
         {
             try
             {
-                var entities = await _context.Set<TEntity>()
+                var entities = await _context.Set<TEntity>().Where(p=>p.IsDeleted ==false)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();

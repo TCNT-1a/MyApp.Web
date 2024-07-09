@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Filter;
@@ -13,33 +14,34 @@ namespace MyApp.Web.Controllers.Core
     {
         private readonly BloggingContext _context;
         private readonly ILogger _logger;
-        protected AbsBaseDtoController(BloggingContext context, ILogger logger)
+        private readonly IMapper _mapper;
+
+        protected AbsBaseDtoController(BloggingContext context, ILogger logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // GET: api/[controller]
         [HttpGet]
         [SwaggerOperation(Summary = "Get all entities.")]
-        //[Consumes("application/json")]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<TDto>>> Get()
         {
-            var data = await _context.Set<TEntity>().ToListAsync();
+            var data = await _context.Set<TEntity>().Where(p => p.IsDeleted == false).ToListAsync();
             return Ok(ConvertToDtos(data));
         }
 
-        // GET: api/[controller]/5
+        // GET: api/[controller]/{id}
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get a entity.", Description = "Requires id of entity as slug {id}.")]
         [SwaggerResponse(201, "The entity is exist in database.", typeof(IActionResult))]
         [SwaggerResponse(400, "The entity is not exist.")]
-        //[Consumes("application/json")]
         [Produces("application/json")]
         public async Task<ActionResult<TDto>> Get(int id)
         {
-            var entity = await _context.Set<TEntity>().FindAsync(id);
+            var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(p => p.Id == id && p.IsDeleted == false);
             if (entity == null)
             {
                 return NotFound();
@@ -57,7 +59,6 @@ namespace MyApp.Web.Controllers.Core
         {
             _context.Set<TEntity>().Add(entity);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction(nameof(Get), new { id = entity.GetType().GetProperty("Id")?.GetValue(entity) }, entity);
         }
 
@@ -68,14 +69,13 @@ namespace MyApp.Web.Controllers.Core
         [SwaggerResponse(400, "The entity is not exist.")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<IActionResult> Put(int id, TEntity entity)
+        public async Task<IActionResult> Put(int id, TDto dto)
         {
-
-            if (!EntityExists(id))
-            {
+            var entity = _context.Set<TEntity>().FirstOrDefault(p => p.Id == id && p.IsDeleted == false);
+            if(entity == null)
                 return NotFound();
-            }
-            entity.Id = id;
+
+            _mapper.Map(dto, entity);
             _context.Entry(entity).State = EntityState.Modified;
 
             try
@@ -109,13 +109,12 @@ namespace MyApp.Web.Controllers.Core
 
             return NoContent();
         }
-        
+
         // RESTORE: api/[controller]/{id}
         [HttpPatch("{id}")]
         [SwaggerOperation(Summary = "Restore a entity.", Description = "Requires id of entity as slug {id}.")]
         [SwaggerResponse(201, "The entity is exist in database.", typeof(IActionResult))]
         [SwaggerResponse(400, "The entity is not exist.")]
-        //[Consumes("application/json")]
         [Produces("application/json")]
         public async Task<IActionResult> Restore(int id)
         {
@@ -153,14 +152,13 @@ namespace MyApp.Web.Controllers.Core
 
         private bool EntityExists(int id)
         {
-
-            return _context.Set<TEntity>().Find(id) != null;
+            return _context.Set<TEntity>().FirstOrDefault(p => p.Id == id && p.IsDeleted == false) != null;
         }
         protected List<TDto> ConvertToDtos(IEnumerable<TEntity> entity)
         {
             if (typeof(TEntity) != typeof(TDto))
             {
-                List<TDto> dtos = new List<TDto>();
+                List<TDto> dtos = new();
                 foreach (var item in entity)
                 {
                     var dto = Activator.CreateInstance<TDto>();

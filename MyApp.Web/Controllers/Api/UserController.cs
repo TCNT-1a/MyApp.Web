@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
@@ -13,7 +14,8 @@ namespace MyApp.Web.Controllers
     public class UserController : AbsBaseDtoController<User, UserDto>
     {
         private BloggingContext _context;
-        public UserController(BloggingContext context, ILogger<User> logger) : base(context, logger)
+        private IMapper _mapper;
+        public UserController(BloggingContext context, ILogger<User> logger, IMapper mapper) : base(context, logger, mapper)
         {
             this._context = context;
         }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -118,7 +119,13 @@ static void ConfigBuilder(ref WebApplicationBuilder builder)
     });
     builder.Services.AddScoped<ValidateModelAttribute>();
     BuildBatchSerice(builder);
+    BuildMapper(builder);
     BuildPort(builder);
+}
+static void BuildMapper(WebApplicationBuilder builder)
+{
+    //builder.Services.AddAutoMapper(typeof(Program).Assembly);
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 }
 static void AppConfigMvc(WebApplication app)
 {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
+using MyApp.Infrastructure.Models.User;
 using MyApp.Web.Controllers.Core;
 using MyApp.Web.Filter;
 using MyApp.Web.Models;
@@ -11,7 +12,7 @@ namespace MyApp.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : AbsBaseDtoController<User, UserDto>
+    public class UserController : AbsBaseDtoController<User, UserCreateUpdateDto, UserGetDto>
     {
         private readonly BloggingContext _context;
         private readonly IMapper _mapper;
@@ -28,7 +29,7 @@ namespace MyApp.Web.Controllers
             entity.Password = HashPassword(entity.Password);
             _context.Set<User>().Add(entity);
             await _context.SaveChangesAsync();
-            var newEntity = new UserDto
+            var newEntity = new UserCreateUpdateDto
             {
                 FullName = entity.FullName,
                 UserName = entity.UserName,

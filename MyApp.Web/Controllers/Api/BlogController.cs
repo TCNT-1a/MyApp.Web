@@ -9,7 +9,7 @@ namespace MyApp.Web.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogController : AbsBaseController<Blog>
+    public class BlogController : BaseController<Blog>
     {
         public BlogController(BloggingContext context, ILogger<Blog> logger) : base(context, logger)
         {

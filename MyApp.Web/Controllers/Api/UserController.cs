@@ -12,7 +12,7 @@ namespace MyApp.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : AbsBaseDtoController<User, UserCreateUpdateDto, UserGetDto>
+    public class UserController : BaseDtoController<User, UserCreateUpdateDto, UserGetDto>
     {
         private readonly BloggingContext _context;
         private readonly IMapper _mapper;
@@ -36,7 +36,7 @@ namespace MyApp.Web.Controllers
                 BirthDate = entity.BirthDate,
                 Email = entity.Email
             };
-            var obj = 
+            var obj =
             CreatedAtAction(nameof(Get), new { id = newEntity.GetType().GetProperty("Id")?.GetValue(newEntity) }, newEntity);
             return obj;
         }

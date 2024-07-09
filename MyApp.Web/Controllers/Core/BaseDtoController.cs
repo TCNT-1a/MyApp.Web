@@ -4,26 +4,29 @@ using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Filter;
 using Swashbuckle.AspNetCore.Annotations;
-
 using System;
 
 namespace MyApp.Web.Controllers.Core
 {
     //soft delete
-    public abstract class AbsBaseDtoController<TEntity, TCreateUpdateDto, TGetDto> : ControllerBase where TEntity : BaseEntity
+    public abstract class BaseDtoController<TEntity, TCreateUpdateDto, TGetDto> : ControllerBase where TEntity : BaseEntity
     {
         private readonly BloggingContext _context;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
        
-        protected AbsBaseDtoController(BloggingContext context, ILogger logger, IMapper mapper)
+        protected BaseDtoController(BloggingContext context, ILogger logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;
             _mapper = mapper;
         }
 
-        // GET: api/[controller]
+        
+        /// <summary>
+        ///GET: api/[controller] 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [SwaggerOperation(Summary = "Get all entities.")]
         [Produces("application/json")]
@@ -33,7 +36,11 @@ namespace MyApp.Web.Controllers.Core
             return Ok(ConvertToDtos(data));
         }
 
-        // GET: api/[controller]/{id}
+        /// <summary>
+        /// GET: api/[controller]/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get a entity.", Description = "Requires id of entity as slug {id}.")]
         [Produces("application/json")]
@@ -47,7 +54,11 @@ namespace MyApp.Web.Controllers.Core
             return Ok(ConvertToDto(entity));
         }
 
-        // POST: api/[controller]
+        /// <summary>
+        /// POST: api/[controller]
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         [HttpPost]
         [ServiceFilter(typeof(ValidateModelAttribute))]
         [SwaggerOperation(Summary = "Create a entity.", Description = "Requires entity object as POST body. .")]
@@ -60,7 +71,12 @@ namespace MyApp.Web.Controllers.Core
             return CreatedAtAction(nameof(Get), new { id = entity.GetType().GetProperty("Id")?.GetValue(entity) }, entity);
         }
 
-        // PUT: api/[controller]/{id}
+        /// <summary>
+        /// PUT: api/[controller]/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Update a entity.", Description = "Requires id of entity as slug {id}.")]
         [SwaggerResponse(201, "The entity is exist in database.")]
@@ -85,7 +101,11 @@ namespace MyApp.Web.Controllers.Core
             return NoContent();
         }
 
-        // DELETE: api/[controller]/{id}
+        /// <summary>
+        /// DELETE: api/[controller]/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Delete a entity.", Description = "Requires id of entity as slug {id}.")]
         [SwaggerResponse(201, "The entity is exist in database.")]
@@ -105,11 +125,15 @@ namespace MyApp.Web.Controllers.Core
             return NoContent();
         }
 
-        // RESTORE: api/[controller]/{id}
+        /// <summary>
+        /// RESTORE: api/[controller]/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPatch("{id}")]
         [SwaggerOperation(Summary = "Restore a entity.", Description = "Requires id of entity as slug {id}.")]
-        [SwaggerResponse(201, "The entity is exist in database.", typeof(Task<IActionResult>))]
-        [SwaggerResponse(400, "The entity is not exist.")]
+        //[SwaggerResponse(201, "The entity is exist in database.", typeof(Task<IActionResult>))]
+        //[SwaggerResponse(400, "The entity is not exist.")]
         [Produces("application/json")]
         public async Task<IActionResult> Restore(int id)
         {
@@ -125,7 +149,12 @@ namespace MyApp.Web.Controllers.Core
             return NoContent();
         }
 
-        // GET: api/[controller]/paged?pageNumber=1&pageSize=10
+        /// <summary>
+        /// GET: api/[controller]/paged?pageNumber=1
+        /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>&pageSize=10
         [HttpGet("paged")]
         public async Task<ActionResult<IEnumerable<TGetDto>>> GetPaged(int pageNumber = 1, int pageSize = 10)
         {

@@ -30,7 +30,6 @@ namespace MyApp.Web.Controllers
             await _context.SaveChangesAsync();
             var newEntity = new UserDto
             {
-                Id = entity.Id,
                 FullName = entity.FullName,
                 UserName = entity.UserName,
                 BirthDate = entity.BirthDate,

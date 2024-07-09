@@ -13,13 +13,13 @@ namespace MyApp.Infrastructure.Data
     public class User: BaseEntity
     {
         [Required(ErrorMessage ="FullName is required")]
-        public string FullName { get; set; }
+        public string? FullName { get; set; }
         [Required(ErrorMessage ="UserName is required")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string? Password { get; set; }
         [EmailAddress(ErrorMessage ="Email is not valid")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public DateTime BirthDate { get; set; }
     }
 }

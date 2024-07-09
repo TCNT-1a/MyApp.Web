@@ -62,7 +62,7 @@ namespace MyApp.Web.Controllers.Core
             return CreatedAtAction(nameof(Get), new { id = entity.GetType().GetProperty("Id")?.GetValue(entity) }, entity);
         }
 
-        // PUT: api/[controller]/5
+        // PUT: api/[controller]/{id}
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Update a entity.", Description = "Requires id of entity as slug {id}.")]
         [SwaggerResponse(201, "The entity is exist in database.")]
@@ -74,10 +74,8 @@ namespace MyApp.Web.Controllers.Core
             var entity = _context.Set<TEntity>().FirstOrDefault(p => p.Id == id && p.IsDeleted == false);
             if(entity == null)
                 return NotFound();
-
             _mapper.Map(dto, entity);
             _context.Entry(entity).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();

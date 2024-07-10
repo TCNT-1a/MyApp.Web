@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyApp.Infrastructure.Data;
+using MyApp.Web.Helper;
 using MyApp.Web.Models;
-using MyApp.Web.Models.Account;
+
 
 namespace MyApp.Web.Controllers
 {

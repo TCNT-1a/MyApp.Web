@@ -4,18 +4,18 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace MyApp.Web.Models.Account
+namespace MyApp.Web.Helper
 {
     public class TokenProvider
     {
         private BloggingContext _context;
         public TokenProvider(BloggingContext context)
         {
-            this._context = context;
+            _context = context;
         }
-        public string LoginUser(string username, string password, bool remember=false)
+        public string LoginUser(string username, string password, bool remember = false)
         {
-            var user = _context.Users.FirstOrDefault(p => p.UserName == username && PasswordHelper.HashPassword(password)==p.Password);
+            var user = _context.Users.FirstOrDefault(p => p.UserName == username && PasswordHelper.HashPassword(password) == p.Password);
 
             var userClaims = new List<Claim>()
             {

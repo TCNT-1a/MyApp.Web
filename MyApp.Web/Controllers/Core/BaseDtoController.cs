@@ -71,7 +71,8 @@ namespace MyApp.Web.Controllers.Core
         {
             _context.Set<TEntity>().Add(entity);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new { id = entity.GetType().GetProperty("Id")?.GetValue(entity) }, entity);
+            var id = new { id = entity.GetType().GetProperty("Id")?.GetValue(entity) };
+            return CreatedAtAction(nameof(Get), id, entity);
         }
 
         /// <summary>

@@ -2,15 +2,16 @@
     Layout = "_Layout";
     ViewData["Title"] = "Login";
 }
+
 <h1>Login</h1>
-<form asp-area="" asp-controller="Account" asp-action="Login" method="post">
+<form asp-area="" asp-controller="Account" asp-action="Login" method="post" class="w-[200px]">
     <div>
         <label class="" asp-formaction="UserName">UserName</label>
-        @await Html.PartialAsync("Components/_Input")
+        <InputField Id="UserName" Placeholder="UserName" />
     </div>
     <div>
         <label>Password</label>
-        @await Html.PartialAsync("Components/_Input")
+        <InputField Id="Password" Placeholder="Password" />
     </div>
-    @await Html.PartialAsync("Components/_BtnSubmit")
+    @* @await Html.PartialAsync("Components/_BtnSubmit") *@
 </form>

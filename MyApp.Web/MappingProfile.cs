@@ -5,15 +5,14 @@ using MyApp.Web.Models;
 
 namespace MyApp.Web
 {
-    public class MappingProfile: Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<UserGetDto, User > ();
+            CreateMap<UserGetDto, User>();
             CreateMap<User, UserGetDto>();
             CreateMap<UserCreateUpdateDto, User>();
-            //CreateMap<TEntity, TGetDto>();
-
+            CreateMap<User, UserCreateUpdateDto>();
         }
     }
 }

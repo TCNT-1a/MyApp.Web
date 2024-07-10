@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MyApp.Infrastructure.Data;
+using MyApp.Web;
 using MyApp.Web.Batch;
 using MyApp.Web.Exceptions;
 using MyApp.Web.Filter;
@@ -125,7 +126,8 @@ static void ConfigBuilder(ref WebApplicationBuilder builder)
 static void BuildMapper(WebApplicationBuilder builder)
 {
     //builder.Services.AddAutoMapper(typeof(Program).Assembly);
-    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    builder.Services.AddAutoMapper(typeof(MappingProfile));
+    //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 }
 static void AppConfigMvc(WebApplication app)
 {

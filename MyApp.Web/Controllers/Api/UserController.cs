@@ -7,7 +7,7 @@ using MyApp.Infrastructure.Models.User;
 using MyApp.Web.Controllers.Core;
 using MyApp.Web.Filter;
 using MyApp.Web.Models;
-
+using System;
 namespace MyApp.Web.Controllers
 {
     [Route("api/[controller]")]
@@ -19,25 +19,22 @@ namespace MyApp.Web.Controllers
         public UserController(BloggingContext context, ILogger<User> logger, IMapper mapper) : base(context, logger, mapper)
         {
             this._context = context;
+            this._mapper = mapper;
         }
+
+
         [HttpPost]
-        
         [ServiceFilter(typeof(ValidateModelAttribute))]
-        
         public override async Task<ActionResult<User>> Post(User entity)
         {
             entity.Password = HashPassword(entity.Password);
             _context.Set<User>().Add(entity);
             await _context.SaveChangesAsync();
-            var newEntity = new UserCreateUpdateDto
-            {
-                FullName = entity.FullName,
-                UserName = entity.UserName,
-                BirthDate = entity.BirthDate,
-                Email = entity.Email
-            };
+            var newEntity = new UserCreateUpdateDto();
+            _mapper.Map(entity, newEntity);
+            var id = new { id = entity.GetType().GetProperty("Id")?.GetValue(entity) };
             var obj =
-            CreatedAtAction(nameof(Get), new { id = newEntity.GetType().GetProperty("Id")?.GetValue(newEntity) }, newEntity);
+            CreatedAtAction(nameof(Get), id, newEntity);
             return obj;
         }
 
@@ -47,3 +44,4 @@ namespace MyApp.Web.Controllers
         }
     }
 }
+

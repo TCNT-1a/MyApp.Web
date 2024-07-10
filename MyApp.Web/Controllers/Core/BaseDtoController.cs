@@ -5,6 +5,7 @@ using MyApp.Infrastructure.Data;
 using MyApp.Web.Filter;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Dynamic;
 
 namespace MyApp.Web.Controllers.Core
 {
@@ -51,7 +52,9 @@ namespace MyApp.Web.Controllers.Core
             {
                 return NotFound();
             }
-            return Ok(ConvertToDto(entity));
+            var getDto = Activator.CreateInstance<TGetDto>();
+            _mapper.Map(entity, getDto);
+            return Ok(getDto);
         }
 
         /// <summary>
@@ -145,7 +148,6 @@ namespace MyApp.Web.Controllers.Core
             entity.Restore();
             _context.Set<TEntity>().Update(entity);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
@@ -185,29 +187,19 @@ namespace MyApp.Web.Controllers.Core
                 foreach (var item in entity)
                 {
                     var dto = Activator.CreateInstance<TGetDto>();
-                    foreach (var prop in typeof(TGetDto).GetProperties())
-                    {
-                        var entityProp = typeof(TEntity).GetProperty(prop.Name);
-                        if (entityProp != null && prop.CanWrite && entityProp.CanRead)
-                        {
-                            var value = entityProp.GetValue(item, null);
-                            prop.SetValue(dto, value, null);
-                        }
-                    }
+                    //var dto = ConvertToDto(item);
+                    _mapper.Map(item, dto);
                     dtos.Add(dto);
                 }
                 return dtos;
-
             }
             else
             {
                 return (List<TGetDto>)entity;
             }
-
         }
-        protected TGetDto ConvertToDto(TEntity entity)
+        protected TGetDto MapperFrom(TEntity entity)
         {
-
             var dto = Activator.CreateInstance<TGetDto>();
             foreach (var prop in typeof(TGetDto).GetProperties())
             {
@@ -220,6 +212,5 @@ namespace MyApp.Web.Controllers.Core
             }
             return dto;
         }
-
     }
 }

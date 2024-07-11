@@ -54,6 +54,34 @@ namespace MyApp.Web.Controllers
             ViewData["SoLan"] = n;
             return View();
         }
+        public IActionResult XuatCauChao()
+        {
+            var model = new LoginModel()
+            {
+                TenDangNhap="Nguyen Van BBB",
+                MatKhau="12345"
+            };
+            return View(model);
+        }
+        public IActionResult ChucMungSinhNhat(string hoten = "nguyen", int birthyear = 5)
+        {
+            //var model = new UserInfor(){
+            //    Name = hoten,
+            //    BirthYear = birthyear
+            //};
+            var model = new UserInfor();
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult ChucMungSinhNhat(UserInfor user)
+        {
+            //var model = new UserInfor(){
+            //    Name = hoten,
+            //    BirthYear = birthyear
+            //};
+            var model = new UserInfor();
 
+            return View(user);
+        }
     }
 }

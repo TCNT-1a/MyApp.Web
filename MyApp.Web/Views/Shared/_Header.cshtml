@@ -1,9 +1,13 @@
 <header>
     <nav>
-        <ul class="flex flex-row">
-            <li class=""><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a asp-controller="Home" asp-action="About">About</a></li>
-            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+        <ul class="flex flex-row space-x-2">
+            <li class="hover:text-blue-600"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="Home" asp-action="About">About</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="account" asp-action="chucmungsinhnhat">Chuc mung sinh
+                    nhat</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="account" asp-action="chucmungsinhnhat"
+                    asp-route-name="Nguyen">Chuc mung sinh nhat</a></li>
         </ul>
     </nav>
 </header>

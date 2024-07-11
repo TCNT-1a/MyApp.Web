@@ -1,0 +1,10 @@
+﻿
+@model MyApp.Web.Models.Account.LoginModel
+
+@{
+    if(!string.IsNullOrEmpty(Model.TenDangNhap)){
+        <h1>@Model.TenDangNhap</h1>
+    }
+    <h1>@Model.MatKhau</h1>
+    
+}

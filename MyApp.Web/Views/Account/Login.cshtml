@@ -1,17 +1,20 @@
 ﻿@{
     Layout = "_Layout";
-    ViewData["Title"] = "Login";
+    var title = ViewData["Title"];
+    var id = ViewData["Id"];
+    var placeholder = ViewData["Placeholder"];
+    var submit = ViewData["submit"];
 }
 
-<h1>Login</h1>
+<h1>@title</h1>
 <form asp-area="" asp-controller="Account" asp-action="Login" method="post" class="w-[200px]">
     <div>
         <label class="" asp-formaction="UserName">UserName</label>
-        <InputField Id="UserName" Placeholder="UserName" />
+        @Html.PartialAsync("Components/_InputField")
     </div>
     <div>
         <label>Password</label>
-        <InputField Id="Password" Placeholder="Password" />
+        @* <InputField Id="Password" Placeholder="Password" /> *@
     </div>
     @* @await Html.PartialAsync("Components/_BtnSubmit") *@
 </form>

@@ -1,0 +1,16 @@
+﻿
+@{
+    var cauchao = ViewData["CauChao"];
+    var lan = (int)ViewData["SoLan"];
+
+}
+<h1>
+    Hello
+</h1>
+<div>
+    @{
+        for (int i = 0;i< lan;i++){
+            <div>@cauchao</div>
+        }
+    }
+</div>

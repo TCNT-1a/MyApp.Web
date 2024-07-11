@@ -20,6 +20,12 @@ namespace MyApp.Web.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             var model = new LoginModel();
+            
+            ViewData["Title"] = "Login";
+            ViewData["Id"] = "UserName";
+            ViewData["Placeholder"] = "UserName";
+            ViewData["submit"] = "Submit";
+            
             return View(model);
         }
         [HttpPost]
@@ -42,5 +48,12 @@ namespace MyApp.Web.Controllers
             }
             return View(loginModel);
         }
+        public IActionResult XuatCauChao2(int n=2, string ten = "Nguyen")
+        {
+            ViewData["CauChao"] = "Xin chao, toi la "+ ten;
+            ViewData["SoLan"] = n;
+            return View();
+        }
+
     }
 }

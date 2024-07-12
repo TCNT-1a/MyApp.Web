@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_Layout";
+    var title = ViewData["Title"];
+}
+
+@model List<MyApp.Web.Models.Account.UserInfor>
+@section header{
+    <link href="~/css/test.css" rel="stylesheet" />
+}
+@section footer{
+    <div class="font-medium bg-blue-700">
+        Trung tâm Tin học - Đại học khoa học tự nhiên - Tp HCM                       
+    </div>
+}
+<table>
+    @{
+        foreach (var u in Model)
+        {
+                <partial name="Components/_MyPartialView" model="@u"></partial>
+        }
+    }
+
+</table>

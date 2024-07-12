@@ -83,7 +83,38 @@ namespace MyApp.Web.Controllers
             var hoten = Request.Form["name"];
             var birthyear = Request.Form["birthyear"];
             ViewData["ketqua"] = DateTime.Now.Year - Int32.Parse(birthyear);
-            return View(user);
+
+            return View(model);
+        }
+        public IActionResult ListUser()
+        {
+            var users = new List<UserInfor>();
+            users.Add(new UserInfor 
+            { 
+                Name = "A",BirthYear = 1990,
+            });
+            users.Add(new UserInfor
+            {
+                Name = "B",
+                BirthYear = 1990,
+            });
+            users.Add(new UserInfor
+            {
+                Name = "C",
+                BirthYear = 1990,
+            });
+            users.Add(new UserInfor
+            {
+                Name = "D",
+                BirthYear = 1990,
+            });
+            users.Add(new UserInfor
+            {
+                Name = "E",
+                BirthYear = 1990,
+            });
+
+            return View(users);
         }
     }
 }

@@ -6,14 +6,19 @@
     <title>@ViewData["Title"] - My ASP.NET Core Application</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="~/js/site.js"></script>
+    @RenderSection("header", required:false)
+
 </head>
 
 <body class="theme-default container mx-auto">
-    @await Html.PartialAsync("_Header")
+    <partial name="_Header"></partial>
+    @*@Html.PartialAsync("_Header")*@
     <div class="container">
         @RenderBody()
     </div>
-    @await Html.PartialAsync("_Footer")
+    @RenderSection("footer", required:false)
+    <partial name="_Footer"></partial>
+    
 </body>
 
 </html>

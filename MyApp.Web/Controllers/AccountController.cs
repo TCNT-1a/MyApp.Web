@@ -80,7 +80,9 @@ namespace MyApp.Web.Controllers
             //    BirthYear = birthyear
             //};
             var model = new UserInfor();
-
+            var hoten = Request.Form["name"];
+            var birthyear = Request.Form["birthyear"];
+            ViewData["ketqua"] = DateTime.Now.Year - Int32.Parse(birthyear);
             return View(user);
         }
     }

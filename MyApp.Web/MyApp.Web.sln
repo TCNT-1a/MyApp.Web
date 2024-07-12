@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Web", "MyApp.Web.csproj", "{2C2B5A87-18AB-48E7-B55E-C7F3CA4D9C9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Web", "MyApp.Web.csproj", "{2C2B5A87-18AB-48E7-B55E-C7F3CA4D9C9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Infrastructure", "..\MyApp.Infrastructure\MyApp.Infrastructure.csproj", "{65B4353B-F8A3-4DD0-98E2-30E6E2367048}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Infrastructure", "..\MyApp.Infrastructure\MyApp.Infrastructure.csproj", "{65B4353B-F8A3-4DD0-98E2-30E6E2367048}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWeb.Core", "..\MyWeb.Core\MyWeb.Core.csproj", "{198B83D6-3CAA-43F2-B23D-14ACB1FA3338}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyWeb.Core", "..\MyWeb.Core\MyWeb.Core.csproj", "{198B83D6-3CAA-43F2-B23D-14ACB1FA3338}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

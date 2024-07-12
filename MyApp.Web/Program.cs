@@ -80,7 +80,7 @@ static void BuildConfigDbContext(WebApplicationBuilder builder)
         .AddJsonFile($"appsettings.{env}.json", optional: true)
         .Build();
     builder.Services.AddSingleton<IConfiguration>(configuration);
-    string connectionString = configuration.GetConnectionString("DbConnection");
+    string connectionString = configuration?.GetConnectionString("DbConnection")?? "Data Source=Data/blogging.db";
     builder.Services.AddDbContext<BloggingContext>((options) => options.UseSqlite(connectionString));
 }
 static void BuildBatchSerice(WebApplicationBuilder builder)

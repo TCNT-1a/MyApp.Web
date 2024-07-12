@@ -7,13 +7,17 @@
 @{
     var name = Model.Name;
     var sn = DateTime.Now.Year - Model.BirthYear;
+    var sn1 = ViewData["ketqua"];
 }
 
 <form id="form1" method="post">
     <input type="text" name="name" placeholder="name" />
-    <input type="text" name="birthyear" placeholder="year" />
+    <input type="number" name="birthyear" placeholder="year" />
     <button type="submit">Submit</button>
 </form>
 @{
     <h4>Chúc mừng sinh nhật @name lần thứ @sn</h4>
+}
+@{
+    <h4 class="color1">Chúc mừng sinh nhật @name lần thứ @sn1</h4>
 }

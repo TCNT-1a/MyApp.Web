@@ -1,12 +1,13 @@
-﻿
+﻿@model MyApp.Web.Models.Account.UserInfor
 @{
     Layout = "_Layout";
-    ViewData["title"] = "Simple Binding";
+    var name = Model.Name;
+    var birthyear = Model.BirthYear;
 }
-<form asp-controller="testbinding" asp-action="simplebinding" method="post" class="w-[200px] flex flex-col space-y-2 ">
+<form asp-controller="testbinding" asp-action="classbinding" method="post" class="w-[200px]">
     <input class="txt-primary" name="name" placeholder="name" />
     <input class="txt-primary" name="birthyear" placeholder="birthyear" />
     <button class="btn-primary" type="submit">Submit</button>
 </form>
-<h2>@ViewData["name"]</h2>
-<h2>@ViewData["birthyear"]</h2>
+<h2>@name</h2>
+<h2>@birthyear</h2>

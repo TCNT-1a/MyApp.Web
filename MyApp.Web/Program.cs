@@ -87,7 +87,7 @@ static void BuildBatchSerice(WebApplicationBuilder builder)
 {
     builder.Services.AddQuartz(q =>
     {
-        q.UseMicrosoftDependencyInjectionJobFactory();
+        //q.UseMicrosoftDependencyInjectionJobFactory(null);
         var CRON = new
         {
             //Repeat every at begin hour
@@ -99,6 +99,7 @@ static void BuildBatchSerice(WebApplicationBuilder builder)
             .WithIdentity("my-job-trigger", "default")
             .WithCronSchedule(CRON.H)
         );
+
     });
 }
 static void BuildPort(WebApplicationBuilder builder)

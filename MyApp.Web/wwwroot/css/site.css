@@ -1192,16 +1192,12 @@ input:checked + .toggle-bg {
   width: 16rem;
 }
 
-.w-\[50px\] {
-  width: 50px;
+.w-\[200px\] {
+  width: 200px;
 }
 
 .w-full {
   width: 100%;
-}
-
-.w-\[200px\] {
-  width: 200px;
 }
 
 .flex-1 {

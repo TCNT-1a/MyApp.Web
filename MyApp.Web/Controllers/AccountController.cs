@@ -7,7 +7,7 @@ namespace MyApp.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private BloggingContext _context;
+        private readonly BloggingContext _context;
         public AccountController(BloggingContext context)
         {
             this._context = context;
@@ -65,10 +65,6 @@ namespace MyApp.Web.Controllers
         }
         public IActionResult ChucMungSinhNhat(string hoten = "nguyen", int birthyear = 5)
         {
-            //var model = new UserInfor(){
-            //    Name = hoten,
-            //    BirthYear = birthyear
-            //};
             var model = new UserInfor();
             return View(model);
         }
@@ -82,7 +78,7 @@ namespace MyApp.Web.Controllers
             var model = new UserInfor();
             var hoten = Request.Form["name"];
             var birthyear = Request.Form["birthyear"];
-            ViewData["ketqua"] = DateTime.Now.Year - Int32.Parse(birthyear);
+            ViewData["ketqua"] = DateTime.Now.Year - Int32.Parse(birthyear.ToString()??"0");
 
             return View(model);
         }

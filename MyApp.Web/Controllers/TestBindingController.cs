@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using MyApp.Infrastructure.Data;
 using MyApp.Web.Helper;
 using MyApp.Web.Models.Account;
 
@@ -38,6 +39,16 @@ namespace MyApp.Web.Controllers
                 Mapper.PropertyCoppier<UserInfor, UserInfor>.Copy(user, u);
             }
             return View(user);
+        }
+        public IActionResult ComplexBinding(Person person)
+        {
+            var u = new Person();
+            if (person != null)
+            {
+                Mapper.PropertyCoppier<Person, Person>.Copy(person, u);
+                Mapper.PropertyCoppier<Place, Place>.Copy(person.Place, u.Place);
+            }
+            return View(u);
         }
 
     }

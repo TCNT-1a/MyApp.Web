@@ -1,4 +1,5 @@
 ﻿
+
 @model MyApp.Web.Models.Account.Person
 @{
     Layout = "_Layout";
@@ -7,14 +8,15 @@
     var place = Model.Place.PlaceName;
     var hobbies = Model.Hobby;
 }
-<form asp-controller="testbinding" asp-action="complexbinding" method="post" class="w-[200px] flex flex-col space-y-2">
+<h3>Form collection binding</h3>
+<form asp-controller="testbinding" asp-action="formcollectionbinding" method="post" class="w-[200px] flex flex-col space-y-2">
     <input class="txt-primary" name="name" placeholder="name" />
     <input class="txt-primary" type="number" name="birthyear" placeholder="birthyear" />
     <input class="txt-primary" name="place.placename" placeholder="placename" />
     <div class="flex flex-row">
         <div><label>Du lịch</label><input type="checkbox" name="hobby" value="du lịch" /></div>
         <div><label>Nấu ăn</label><input type="checkbox" name="hobby" value="nấu ăn" /></div>
-        <div><label>Mua sắm</label><input type="checkbox" name="hobby" value="mua sắm"  /></div>
+        <div><label>Mua sắm</label><input type="checkbox" name="hobby" value="mua sắm" /></div>
     </div>
     <button class="btn-primary" type="submit">Submit</button>
 </form>
@@ -24,10 +26,11 @@
     <h2>@birthyear</h2>
     <ul>
         @{
-            foreach(var hobby in hobbies){
+            foreach (var hobby in hobbies)
+            {
                 <li>@hobby.Name</li>
             }
         }
-        
+
     </ul>
 </div>

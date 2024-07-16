@@ -2,7 +2,7 @@
 {
     public class Place
     {
-        public int Id {get;set;}
-        public string ThanhPho {get;set;}
+        public int Id { get; set; }
+        public string PlaceName { get; set; }
     }
 }

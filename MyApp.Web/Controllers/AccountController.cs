@@ -16,101 +16,32 @@ namespace MyApp.Web.Controllers
         {
             return View();
         }
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login(string returnUrl="")
         {
             ViewData["ReturnUrl"] = returnUrl;
             var model = new LoginModel();
-            
-            ViewData["Title"] = "Login";
-            ViewData["Id"] = "UserName";
-            ViewData["Placeholder"] = "UserName";
-            ViewData["submit"] = "Submit";
-            
             return View(model);
         }
         [HttpPost]
-        public IActionResult Login(LoginModel loginModel, string returnUrl="")
+        public IActionResult Login(LoginModel loginModel)
         {
             if (ModelState.IsValid)
             {
                 var tokenProvider = new TokenProvider(_context);
-                var token = tokenProvider.LoginUser(loginModel.TenDangNhap, loginModel.MatKhau, true);
-                if(token != "")
+                var token = tokenProvider.LoginUser(loginModel.UserName, loginModel.Password, true);
+                if (!string.IsNullOrEmpty(token))
                 {
-                    if(returnUrl == "")
+                    //if (returnUrl == "")
                     {
                         //return Redirect("~/Home/Index");
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Home");
                     }
-                        
-                    return Redirect(returnUrl);
+
+                    //return Redirect(returnUrl);
                 }
             }
             return View(loginModel);
         }
-        public IActionResult XuatCauChao2(int n=2, string ten = "Nguyen")
-        {
-            ViewData["CauChao"] = "Xin chao, toi la "+ ten;
-            ViewData["SoLan"] = n;
-            return View();
-        }
-        public IActionResult XuatCauChao()
-        {
-            var model = new LoginModel()
-            {
-                TenDangNhap="Nguyen Van BBB",
-                MatKhau="12345"
-            };
-            return View(model);
-        }
-        public IActionResult ChucMungSinhNhat(string hoten = "nguyen", int birthyear = 5)
-        {
-            var model = new UserInfor();
-            return View(model);
-        }
-        [HttpPost]
-        public IActionResult ChucMungSinhNhat(UserInfor user)
-        {
-            //var model = new UserInfor(){
-            //    Name = hoten,
-            //    BirthYear = birthyear
-            //};
-            var model = new UserInfor();
-            var hoten = Request.Form["name"];
-            var birthyear = Request.Form["birthyear"];
-            ViewData["ketqua"] = DateTime.Now.Year - Int32.Parse(birthyear.ToString()??"0");
-
-            return View(model);
-        }
-        public IActionResult ListUser()
-        {
-            var users = new List<UserInfor>();
-            users.Add(new UserInfor 
-            { 
-                Name = "A",BirthYear = 1990,
-            });
-            users.Add(new UserInfor
-            {
-                Name = "B",
-                BirthYear = 1990,
-            });
-            users.Add(new UserInfor
-            {
-                Name = "C",
-                BirthYear = 1990,
-            });
-            users.Add(new UserInfor
-            {
-                Name = "D",
-                BirthYear = 1990,
-            });
-            users.Add(new UserInfor
-            {
-                Name = "E",
-                BirthYear = 1990,
-            });
-
-            return View(users);
-        }
     }
+
 }

@@ -2,8 +2,10 @@
     <nav>
         <ul class="flex flex-row space-x-2">
             <li class="hover:text-blue-600"><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li class="hover:text-blue-600"><a asp-controller="account" asp-action="chucmungsinhnhat">Chuc mung sinh
-                    nhat</a></li>
+            <li class="hover:text-blue-600">
+                <a asp-controller="account" asp-action="login">Login</a>
+            </li>
+            <li class="hover:text-blue-600"><a asp-controller="account" asp-action="chucmungsinhnhat">Chuc mung sinh nhat</a></li>
             <li class="hover:text-blue-600"><a asp-controller="account" asp-action="chucmungsinhnhat"
                     asp-route-name="Nguyen">Chuc mung sinh nhat</a></li>
             <li class="hover:text-blue-600"><a asp-controller="testbinding" asp-action="nobinding">No Binding</a></li>

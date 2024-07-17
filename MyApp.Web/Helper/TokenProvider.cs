@@ -15,21 +15,26 @@ namespace MyApp.Web.Helper
         }
         public string LoginUser(string username, string password, bool remember = false)
         {
-            var user = _context.Users.FirstOrDefault(p => p.UserName == username && PasswordHelper.HashPassword(password) == p.Password);
-
-            var userClaims = new List<Claim>()
+            var user = _context.Users.FirstOrDefault(p => p.UserName == username);
+            if(user != null && PasswordHelper.VerifyPassword(password, user.Password))
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, "user"),
-                new Claim(ClaimTypes.GivenName, user.FullName),
-                new Claim(ClaimTypes.Email, user.Email),
-            };
-            var token = GetToken(userClaims);
-            return token;
+                var userClaims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Role, "user"),
+                    new Claim(ClaimTypes.GivenName, user.FullName),
+                    new Claim(ClaimTypes.Email, user.Email),
+                };
+                var token = GetToken(userClaims);
+                return token;                
+            }
+            return null;
+
+            
         }
         private string GetToken(List<Claim> userClaims)
         {
-            var key = Encoding.ASCII.GetBytes("a1b2c3-tcn");
+            var key = Encoding.UTF8.GetBytes("a1b2c3-tcn-dbc82ddd3a6d83b04e08b946b87bf38a9e1b1f64");
             var JWToken = new JwtSecurityToken(
                 issuer: "https://localhost:5001/",
                 audience: "https://localhost:5001/",

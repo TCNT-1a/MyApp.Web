@@ -1,20 +1,24 @@
-﻿@{
+﻿@model MyApp.Web.Models.Account.LoginModel
+@{
     Layout = "_Layout";
-    var title = ViewData["Title"];
-    var id = ViewData["Id"];
-    var placeholder = ViewData["Placeholder"];
-    var submit = ViewData["submit"];
 }
-
-<h1>@title</h1>
-<form asp-area="" asp-controller="Account" asp-action="Login" method="post" class="w-[200px]">
+<form asp-area="" asp-controller="Account" asp-action="Login" method="post" class="w-[200px] flex flex-col space-y-2">
     <div>
-        <label class="" asp-formaction="UserName">UserName</label>
-        @Html.PartialAsync("Components/_InputField")
+        <label asp-for="UserName">UserName</label>
+        <input asp-for="UserName" type="text" name="username" class="txt-primary"/>
+        <span asp-validation-for="UserName"></span>
     </div>
     <div>
-        <label>Password</label>
-        @* <InputField Id="Password" Placeholder="Password" /> *@
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" name="password" class="txt-primary" />
+        <span asp-validation-for="Password"></span>
     </div>
-    @* @await Html.PartialAsync("Components/_BtnSubmit") *@
+    <div>
+        <label asp-for="RememberMe">Remember Me</label>
+        <input asp-for="RememberMe" type="checkbox" name="rememberme" />
+        <span asp-validation-for="RememberMe"></span>
+    </div>
+    <div>
+        <button type="submit" class="btn-primary">Login</button>
+    </div>
 </form>

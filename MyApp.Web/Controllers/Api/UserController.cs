@@ -6,6 +6,7 @@ using MyApp.Infrastructure.Data;
 using MyApp.Infrastructure.Models.User;
 using MyApp.Web.Controllers.Core;
 using MyApp.Web.Filter;
+using MyApp.Web.Helper;
 using MyApp.Web.Models;
 using System;
 namespace MyApp.Web.Controllers
@@ -27,7 +28,7 @@ namespace MyApp.Web.Controllers
         [ServiceFilter(typeof(ValidateModelAttribute))]
         public override async Task<ActionResult<User>> Post(User entity)
         {
-            entity.Password = HashPassword(entity.Password);
+            entity.Password = PasswordHelper.HashPassword(entity.Password);
             await base.Post(entity);
             var newEntity = new UserCreateUpdateDto();
             _mapper.Map(entity, newEntity);

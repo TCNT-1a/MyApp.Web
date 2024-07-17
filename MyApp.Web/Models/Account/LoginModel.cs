@@ -6,13 +6,16 @@ namespace MyApp.Web.Models.Account
     public class LoginModel
     {
         [Required(ErrorMessage = "Vui lòng nhập Tên đăng nhập")]
-        [Display(Name = "Tên đăng nhập")]
-        public string TenDangNhap { get; set; }
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+
         [DataType(DataType.Password)]
-        [Display(Name = "Mật khẩu")]
+        [Display(Name = "Password")]
         [Required(ErrorMessage = "Vui lòng nhập Mật khẩu")]
-        public string MatKhau { get; set; }
-        [Display(Name = "Remember?")]
-        public bool GhiNho { get; set; }
+        public string Password { get; set; }
+        [Display(Name = "Remember")]
+        public bool RememberMe { get; set; }
+        
     }
 }

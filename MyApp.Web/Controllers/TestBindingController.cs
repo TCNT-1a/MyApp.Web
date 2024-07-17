@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Helper;
 using MyApp.Web.Models.Account;
@@ -70,9 +71,9 @@ namespace MyApp.Web.Controllers
                     PlaceName = form["place.placename"]
                 };
                 List<Hobby> hobbies = new List<Hobby>();
-                string hobby = form["hobby"];
+                StringValues hobby = form["hobby"];
                 
-                foreach(var st in hobby.Split(','))
+                foreach(var st in hobby)
                 {
                     hobbies.Add(new Hobby
                     {
@@ -89,6 +90,16 @@ namespace MyApp.Web.Controllers
             }
             else { person = new Person(); }
             return View(person);
+        }
+        public IActionResult ExplicitModelBinding()
+        {
+            var model = new Person();
+            if (ModelState.IsValid)
+            {
+                
+                TryUpdateModelAsync(model);
+            }
+            return View(model);
         }
     }
 }

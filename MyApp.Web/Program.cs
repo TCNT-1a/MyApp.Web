@@ -16,14 +16,15 @@ builder.Services.AddControllersWithViews();
 ConfigBuilder(ref builder);
 
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionMiddleware>();
 AppConfigSwagger(app);
 AppConfigMvc(app);
+
 app.MapControllers();
 app.UseAuthorization();
 app.UseAuthentication();
 app.UseSession();
-app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseRouting();
 using (var scope = app.Services.CreateScope())
 {
@@ -80,7 +81,7 @@ static void BuildConfigDbContext(WebApplicationBuilder builder)
         .AddJsonFile($"appsettings.{env}.json", optional: true)
         .Build();
     builder.Services.AddSingleton<IConfiguration>(configuration);
-    string connectionString = configuration?.GetConnectionString("DbConnection")?? "Data Source=Data/blogging.db";
+    string connectionString = configuration?.GetConnectionString("DbConnection") ?? "Data Source=Data/blogging.db";
     builder.Services.AddDbContext<BloggingContext>((options) => options.UseSqlite(connectionString));
 }
 static void BuildBatchSerice(WebApplicationBuilder builder)
@@ -117,7 +118,7 @@ static void ConfigBuilder(ref WebApplicationBuilder builder)
     BuildConfigDbContext(builder);
     builder.Services.Configure<ApiBehaviorOptions>(options =>
     {
-        options.SuppressModelStateInvalidFilter = true;
+        options.SuppressModelStateInvalidFilter = false;
     });
     builder.Services.AddScoped<ValidateModelAttribute>();
     BuildBatchSerice(builder);

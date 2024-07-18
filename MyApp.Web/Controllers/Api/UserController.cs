@@ -29,7 +29,8 @@ namespace MyApp.Web.Controllers
         public override async Task<ActionResult<User>> Post(User entity)
         {
             entity.Password = PasswordHelper.HashPassword(entity.Password);
-            await base.Post(entity);
+            this._context.Users.Add(entity);
+            await this._context.SaveChangesAsync();
             var newEntity = new UserCreateUpdateDto();
             _mapper.Map(entity, newEntity);
             var id = new { id = entity.GetType().GetProperty("Id")?.GetValue(entity) };

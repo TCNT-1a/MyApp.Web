@@ -16,6 +16,7 @@ builder.Services.AddControllersWithViews();
 ConfigBuilder(ref builder);
 
 var app = builder.Build();
+app.UseSession();
 app.UseMiddleware<ExceptionMiddleware>();
 AppConfigSwagger(app);
 AppConfigMvc(app);
@@ -23,7 +24,7 @@ AppConfigMvc(app);
 //app.MapControllers();
 app.UseAuthorization();
 app.UseAuthentication();
-app.UseSession();
+
 
 app.UseRouting();
 using (var scope = app.Services.CreateScope())
@@ -74,7 +75,8 @@ static void BuildSessionCookie(WebApplicationBuilder builder)
 
     builder.Services.AddSession(options =>
     {
-        options.IdleTimeout = TimeSpan.FromDays(20);
+        //options.IdleTimeout = TimeSpan.FromDays(20);
+        options.IdleTimeout = TimeSpan.FromSeconds(20);
         options.Cookie.HttpOnly = true;
         options.Cookie.IsEssential = true;
     });

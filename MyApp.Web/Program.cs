@@ -20,7 +20,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 AppConfigSwagger(app);
 AppConfigMvc(app);
 
-app.MapControllers();
+//app.MapControllers();
 app.UseAuthorization();
 app.UseAuthentication();
 app.UseSession();
@@ -42,13 +42,20 @@ static void AppConfigSwagger(WebApplication app)
     //    app.UseSwaggerUI();
     //}
     app.UseSwagger();
-    app.UseSwaggerUI();
+    // app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            //c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+            c.RoutePrefix = "swagger";
+        }
+    );
 }
 static void BuildSwagger(WebApplicationBuilder builder)
 {
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    //builder.Services.AddSwaggerGen();
+    // builder.Services.AddSwaggerGen();
     builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyApp.Web", Version = "v1" });
@@ -155,5 +162,9 @@ static void AppConfigMvc(WebApplication app)
         endpoints.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
+        endpoints.MapControllers();
+        //endpoints.MapControllerRoute(
+        //    name: "dev",
+        //    pattern: "{controller=TestBinding}/{action=TestRouting}/{id1}/{id2}");
     });
 }

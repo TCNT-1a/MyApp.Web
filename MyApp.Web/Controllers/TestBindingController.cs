@@ -101,5 +101,14 @@ namespace MyApp.Web.Controllers
             }
             return View(model);
         }
+        //[Route("vidurouting/{id1}/{id2?}")]
+        public IActionResult TestRouting(int id1, int id2)
+        {
+            ViewData["id1"] = id1;
+            ViewData["id2"] = id2;
+            return View();
+        }
+
+
     }
 }

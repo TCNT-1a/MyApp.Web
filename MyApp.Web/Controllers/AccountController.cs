@@ -5,6 +5,7 @@ using MyApp.Web.Models.Account;
 
 namespace MyApp.Web.Controllers
 {
+    //[Route("taikhoan")]
     public class AccountController : Controller
     {
         private readonly BloggingContext _context;
@@ -16,6 +17,7 @@ namespace MyApp.Web.Controllers
         {
             return View();
         }
+        //[Route("dangnhap")]
         public IActionResult Login(string returnUrl="")
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -30,14 +32,8 @@ namespace MyApp.Web.Controllers
                 var tokenProvider = new TokenProvider(_context);
                 var token = tokenProvider.LoginUser(loginModel.UserName, loginModel.Password, true);
                 if (!string.IsNullOrEmpty(token))
-                {
-                    //if (returnUrl == "")
-                    {
-                        //return Redirect("~/Home/Index");
-                        return RedirectToAction("Index", "Home");
-                    }
-
-                    //return Redirect(returnUrl);
+                {                   
+                    return RedirectToAction("Index", "Home");   
                 }
             }
             return View(loginModel);

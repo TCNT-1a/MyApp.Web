@@ -4,6 +4,13 @@
 <h1>Home</h1>
 <div>
     <p>Trang thai: @ViewBag.TrangThai</p>
-    <p>Trang thai: @ViewBag.HoTen</p>
-    <p>Trang thai: @ViewBag.Tuoi</p>
+    <p>Ho ten: @ViewBag.HoTen</p>
+    <p>Tuoi: @ViewBag.Tuoi</p>
+    <p>Thoi gian: @ViewBag.ThoiGian</p>
 </div>
+@{
+    System.Diagnostics.Process p = System.Diagnostics.Process.GetCurrentProcess();
+    long ram = p.WorkingSet64;
+    string str = $"RAM: {ram / 1024 / 1024} MB";
+}
+<h3>@str</h3>

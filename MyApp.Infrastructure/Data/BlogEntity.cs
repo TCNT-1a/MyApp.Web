@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyApp.Infrastructure.Data
 {
-    public class MetaData: BaseEntity
+    public abstract class BlogEntity:BaseEntity
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        
+        public string Slug { get; set; }
+        public bool isPublished { get; set; }
     }
 }

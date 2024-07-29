@@ -11,7 +11,10 @@ namespace MyApp.Infrastructure.Data
             : base(options)
         {
         }
-        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<HeadingTag> HeadingTags { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

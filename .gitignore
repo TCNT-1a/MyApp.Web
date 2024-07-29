@@ -3,9 +3,10 @@
 /MyWeb.Core/obj
 /MyApp.Web/bin
 /MyApp.Web/obj
-/MyApp.Web/.vs
+/MyApp.Web/.vs/*
 /MyWeb.Core/bin
 /MyApp.Infrastructure/bin
 /MyApp.Infrastructure/obj
 /MyApp.Web/node_modules
 /MyApp.Infrastructure/Migrations
+/MyApp.Web/.vs

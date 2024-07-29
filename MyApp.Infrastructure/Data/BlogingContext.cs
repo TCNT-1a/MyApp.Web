@@ -18,3 +18,6 @@ namespace MyApp.Infrastructure.Data
         public DbSet<User> Users { get; set; }
     }
 }
+/*
+ * https://tuhocict.com/quan-he-1-nhieu-trong-entity-framework/#tao-quan-he-1-nhieu-tu-phia-nhieu
+ * */

@@ -13,7 +13,8 @@
 <body class="theme-default container mx-auto">
     <partial name="_Header"></partial>
     @*@Html.PartialAsync("_Header")*@
-    <div class="container">
+    <div class="container flex flex-row">
+        <partial name="_LeftBar"></partial>
         @RenderBody()
     </div>
     @RenderSection("footer", required:false)

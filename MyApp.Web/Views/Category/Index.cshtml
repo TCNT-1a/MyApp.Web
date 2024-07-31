@@ -1,9 +1,11 @@
 ﻿@model List<MyApp.Infrastructure.Data.Category>
 @{
     Layout = "_Layout";
+    var list = Model;
 }
+
 <div class="flex flex-col">
-    @*<form asp-action="" method="post"></form>*@
+    <a asp-controller="category" asp-action="create" class="btn-primary w-fit">Create</a>
     <table class="table">
         <thead class="t-head"> 
             <tr>
@@ -18,16 +20,27 @@
             </tr>
         </thead>
         <tbody class="t-body">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+
+            @{ if(list.Count!=0){
+                    foreach(var e in list){
+                        <tr>
+                            <td>e.Id</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                }else{
+                    <tr>
+                        <td colspan="8">No data </td>
+                    </tr>
+                }
+            }
+            
         </tbody>
     </table>
 </div>

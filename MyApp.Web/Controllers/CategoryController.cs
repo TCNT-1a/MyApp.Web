@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Controllers.Core;
 
@@ -13,7 +14,10 @@ namespace MyApp.Web.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            ViewData["title"] = "Category";
+            var model = _context.Categories.ToList();
+
+            return View(model);
         }
 
     }

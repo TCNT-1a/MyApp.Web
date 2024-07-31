@@ -1,0 +1,21 @@
+<header>
+    <nav>
+        <ul class="flex flex-row space-x-2">
+            <li class="hover:text-blue-600"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="hover:text-blue-600">
+                <a asp-controller="account" asp-action="login">Login</a>
+            </li>
+            <li class="hover:text-blue-600"><a asp-controller="account" asp-action="chucmungsinhnhat">Chuc mung sinh nhat</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="account" asp-action="chucmungsinhnhat"
+                    asp-route-name="Nguyen">Chuc mung sinh nhat</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="testbinding" asp-action="nobinding">No Binding</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="testbinding" asp-action="simplebinding">Simple Binding</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="testbinding" asp-action="classbinding">Class Binding</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="testbinding" asp-action="complexbinding">Complex Binding</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="testbinding" asp-action="formcollectionbinding">FormCollection Binding</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="testbinding" asp-action="ExplicitModelBinding">ExplicitModel Binding</a></li>
+            <li class="hover:text-blue-600"><a asp-controller="TestBinding" asp-action="TestRouting" asp-route-id1="1" asp-route-id2="2">Test rounting</a></li>
+            
+        </ul>
+    </nav>
+</header>

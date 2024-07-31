@@ -1,23 +1,24 @@
-﻿<!DOCTYPE html>
+﻿
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <title>@ViewData["Title"] - My ASP.NET Core Application</title>
+    <title>Aircap-@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="~/js/site.js"></script>
     @RenderSection("header", required:false)
 
 </head>
 
-<body class="theme-default container mx-auto">
+<body class="theme-default container mx-auto space-y-2">
     <partial name="_Header"></partial>
     @*@Html.PartialAsync("_Header")*@
-    <div class="container flex flex-row">
+    <div class="flex flex-row space-x-2">
         <partial name="_LeftBar"></partial>
-        @RenderBody()
+        <div>@RenderBody()</div>
+        
     </div>
-    @RenderSection("footer", required:false)
+    @*@RenderSection("footer", required:false)*@
     <partial name="_Footer"></partial>
     
 </body>

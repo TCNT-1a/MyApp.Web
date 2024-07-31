@@ -1,11 +1,17 @@
-<header>
-    <nav>
-        <ul class="flex flex-row space-x-2 ">
-            <li class=" boxhover "><a asp-controller="Category" asp-action="Index">Category</a></li>
-            <li class=" boxhover"><a href="#">Tag</a></li>
-            <li class=" boxhover"><a href="#">Post</a></li>
-            <li class=" boxhover"><a href="#">User</a></li>
-            <li class=" boxhover"><a href="#">HeadingTag</a></li>
-        </ul>
-    </nav>
+<header class="bg-primary flex justify-between items-center shadow-md" >
+    <div class="brand flex flex-row">
+        <div className=" p-2">
+            <a href="/" className="flex flex-row items-center space-x-2">
+                <div class="w-fit h-fit">
+                    <img class="rounded-full" width="30" height="30" alt="logo" src="logo.jpg"/>
+                </div>
+                <div>
+                    <h1 className="bg-primary text-gray-100 font-bold">Airdrop</h1>
+                </div>
+                
+            </a>
+        </div>
+
+    </div>
+    <div class="searchbox"></div>
 </header>

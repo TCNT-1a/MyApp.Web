@@ -16,6 +16,6 @@ namespace MyApp.Web.Models.Account
         public string Password { get; set; }
         [Display(Name = "Remember")]
         public bool RememberMe { get; set; }
-        
+        public string? ReturnUrl { get; set; }
     }
 }

@@ -18,7 +18,6 @@ namespace MyApp.Web.Controllers
 
             if (Request?.Method =="POST")
             {
-
                 var name = Request.Form["name"];
                 var birthyear = Request.Form["birthyear"];
                 ViewData["name"] = name;

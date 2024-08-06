@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Controllers.Core;
 
 namespace MyApp.Web.Controllers
 {
+    [Authorize(Roles = "user")]
     public class CategoryController : Controller
     {
         private BloggingContext _context;

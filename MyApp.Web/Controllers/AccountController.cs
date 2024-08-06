@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyApp.Infrastructure.Data;
 using MyApp.Web.Helper;
 using MyApp.Web.Models.Account;
@@ -18,22 +19,30 @@ namespace MyApp.Web.Controllers
             return View();
         }
         //[Route("dangnhap")]
-        public IActionResult Login(string returnUrl="")
+        public IActionResult Login(string returnUrl = "")
         {
             ViewData["ReturnUrl"] = returnUrl;
             var model = new LoginModel();
             return View(model);
         }
         [HttpPost]
-        public IActionResult Login(LoginModel loginModel)
+        public IActionResult Login([FromForm] LoginModel loginModel, [FromQuery] string? returnUrl)
         {
+
             if (ModelState.IsValid)
             {
+                //Request.QueryString
+                //Request.Form[""ReturnUrl]
                 var tokenProvider = new TokenProvider(_context);
                 var token = tokenProvider.LoginUser(loginModel.UserName, loginModel.Password, true);
                 if (!string.IsNullOrEmpty(token))
-                {                   
-                    return RedirectToAction("Index", "Home");   
+                {
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
             }
             return View(loginModel);

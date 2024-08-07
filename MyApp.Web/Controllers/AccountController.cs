@@ -28,11 +28,8 @@ namespace MyApp.Web.Controllers
         [HttpPost]
         public IActionResult Login([FromForm] LoginModel loginModel, [FromQuery] string? returnUrl)
         {
-
             if (ModelState.IsValid)
             {
-                //Request.QueryString
-                //Request.Form[""ReturnUrl]
                 var tokenProvider = new TokenProvider(_context);
                 var token = tokenProvider.LoginUser(loginModel.UserName, loginModel.Password, true);
                 if (!string.IsNullOrEmpty(token))

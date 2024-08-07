@@ -2,7 +2,7 @@
 @{
     Layout = "_Layout";
 }
-<form asp-area="" asp-controller="Account" asp-action="Login" method="post" class="w-[200px] flex flex-col space-y-2">
+<form asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="w-[200px] flex flex-col space-y-2">
     <div>
         <label asp-for="UserName">UserName</label>
         <input asp-for="UserName" type="text" name="username" class="txt-primary"/>

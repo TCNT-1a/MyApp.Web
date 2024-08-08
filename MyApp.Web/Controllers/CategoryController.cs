@@ -6,7 +6,8 @@ using MyApp.Web.Controllers.Core;
 
 namespace MyApp.Web.Controllers
 {
-    [Authorize(Roles = "user")]
+    //[Authorize(Roles = "user")]
+    [Authorize]
     public class CategoryController : Controller
     {
         private BloggingContext _context;

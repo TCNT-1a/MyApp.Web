@@ -15,22 +15,29 @@ namespace MyApp.Web.Helper
         }
         public string LoginUser(string username, string password, bool remember = false)
         {
+            var userClaims = GetClaimUser(username, password,remember);
+            if (userClaims != null)
+            {
+                var token = GetToken(userClaims);
+                return token;
+            }
+            return null;
+        }
+        public List<Claim> GetClaimUser(string username, string password, bool remember = false)
+        {
             var user = _context.Users.FirstOrDefault(p => p.UserName == username);
-            if(user != null && PasswordHelper.VerifyPassword(password, user.Password))
+            if (user != null && PasswordHelper.VerifyPassword(password, user.Password))
             {
                 var userClaims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Role, "user"),
+                    new Claim(ClaimTypes.Role, user.Role),
                     new Claim(ClaimTypes.GivenName, user.FullName),
                     new Claim(ClaimTypes.Email, user.Email),
                 };
-                var token = GetToken(userClaims);
-                return token;                
+                return userClaims;
             }
             return null;
-
-            
         }
         private string GetToken(List<Claim> userClaims)
         {

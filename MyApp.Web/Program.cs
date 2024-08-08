@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using MyApp.Infrastructure.Data;
 using MyApp.Web;
 using MyApp.Web.Batch;
+using MyApp.Web.Controllers.Core;
 using MyApp.Web.Exceptions;
 using MyApp.Web.Filter;
 using Quartz;
@@ -24,6 +25,7 @@ AppConfigMvc(app);
 //app.MapControllers();
 app.UseAuthorization();
 app.UseAuthentication();
+//CookieAuthenticationDefaults.AuthenticationScheme
 
 
 app.UseRouting();
@@ -63,6 +65,16 @@ static void BuildSwagger(WebApplicationBuilder builder)
         c.EnableAnnotations(); // Kích hoạt chú thích cho Swagger
     });
 }
+static void BuildIdentity(WebApplicationBuilder builder)
+{
+    builder.Services.AddDbContext<MyAppDbContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<BloggingContext>();
+
+}
+
 static void BuildSessionCookie(WebApplicationBuilder builder)
 {
     builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
@@ -125,6 +137,7 @@ static void ConfigBuilder(ref WebApplicationBuilder builder)
     BuildSessionCookie(builder);
     BuildSwagger(builder);
     BuildConfigDbContext(builder);
+    BuildIdentity(builder);
     builder.Services.Configure<ApiBehaviorOptions>(options =>
     {
         options.SuppressModelStateInvalidFilter = false;
